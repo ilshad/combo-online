@@ -19,7 +19,7 @@
                   [org.omcljs/om             "0.8.8"       :scope "provided"]
                   [prismatic/om-tools        "0.3.10"]
                   [org.clojure/core.match    "0.3.0-alpha4"]
-                  [combo                     "0.1.1"]
+                  [combo                     "0.2.0"]
                   [adzerk/boot-cljs          "0.0-2814-4"     :scope "test"]
                   [adzerk/boot-reload        "0.2.6"          :scope "test"]
                   [adzerk/boot-cljs-repl     "0.1.9"          :scope "test"]

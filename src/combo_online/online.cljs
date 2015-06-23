@@ -21,22 +21,22 @@
 
 (defn- init []
   (let [state {:units [empty-unit]}]
-    [(messages state) state]))
+    [state (messages state)]))
 
 (defn- add [state]
   (let [state (update-in state [:units] #(conj % empty-unit))]
-    [(messages state) state]))
+    [state (messages state)]))
 
-(defn- delete [id state]
+(defn- delete [state id]
   (let [state (update-in state [:units] #(remove-from-vector % id))]
-    [(messages state) state]))
+    [state (messages state)]))
 
-(defn behavior [message state]
+(defn behavior [state message]
   (match message
     [:combo/init :data _] (init)
     [:add :click _]       (add state)
-    [[::unit id]]         (delete id state)
-    :else [[] state]))
+    [[::unit id]]         (delete state id)
+    :else [state []]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Render
@@ -91,11 +91,13 @@
 ;; Spec
 
 (def behavior-init-source "
-(fn [msg state]
-  [[] state])
+(fn [state event]
+  (match event
+    [:click-me :click _] [state [[:alert :value (rand-int 1000)]]]
+    :else [state []]))
 ")
 
-(def spec
+(def units
   [{:render combo/div
     :class "col-xs-3"
     :units [{:render combo/button
@@ -132,4 +134,4 @@
     {:opts {:layout combo/bootstrap-layout
             :behavior behavior
             :debug? true
-            :units spec}}))
+            :units units}}))
