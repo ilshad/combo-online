@@ -3,13 +3,8 @@
             [cljs.core.async :as async]
             [cljs.core.match :refer-macros [match]]
             [om-tools.dom :as dom :include-macros true]
-            [om.core :as om :include-macros true]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Utils
-
-(defn- remove-from-vector [v pos]
-  (vec (concat (subvec v 0 pos) (subvec v (inc pos) (count v)))))
+            [om.core :as om :include-macros true]
+            [combo-online.util :as util]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Behavior
@@ -28,7 +23,7 @@
     [state (messages state)]))
 
 (defn- delete [state id]
-  (let [state (update-in state [:units] #(remove-from-vector % id))]
+  (let [state (update-in state [:units] #(util/remove-from-vector % id))]
     [state (messages state)]))
 
 (defn behavior [state message]
@@ -93,9 +88,15 @@
 (def behavior-init-source "
 (fn [state event]
   (match event
-    [:click-me :click _] [state [[:alert :value (rand-int 1000)]]]
+
+    [:click-me :click _]
+    [state [[:click-me :class (rand-nth [\"btn btn-default\" \"btn btn-success])]]]
+
     :else [state []]))
 ")
+
+(defn- icon [cls]
+  (dom/i {:class (str "fa fa-" cls)}))
 
 (def units
   [{:render combo/div
@@ -103,7 +104,7 @@
     :units [{:render combo/button
              :entity :add
              :class "btn btn-primary btn-block"
-             :value "Add unit"}
+             :value (icon "plus")}
             {:render render-constructor
              :entity :constructor}]}
    {:render combo/div
@@ -114,17 +115,23 @@
             {:render combo/textarea
              :entity :behavior
              :value behavior-init-source
-             :class "box"}
+             :class "box source-behavior"}
             {:render combo/div
              :entity :output
              :class "box messages"}
             {:render combo/div
              :entity :spec
              :value "foo bar"
-             :class "box resizable source"}]}
+             :class "box resizable source-spec"}]}
    {:render combo/div
     :class "col-xs-5"
-    :value "Result..."}])
+    :units [{:render combo/button
+             :entity :run
+             :class "btn btn-default btn-block"
+             :value (icon "play")}
+            {:render combo/div
+             :class "box result"
+             :value "Result app..."}]}])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Public

@@ -47,8 +47,18 @@ body, input {
     background-color: #fcf8e3;
 }
 
-textarea.box {
-    height: 145px;
+.source-spec {
+    height: 95px;
+}
+
+.result {
+    height: 500px;
+}
+
+.source-behavior {
+    height: 350px;
+    background-color: #434b47;
+    color: white;
 }
 
 .constructor {
@@ -77,8 +87,4 @@ textarea.box {
 
 .unit label {
     color: #6d7a74;
-}
-
-.source {
-    height: 300px;
 }
