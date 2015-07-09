@@ -12,11 +12,11 @@
 (set-env!
   :source-paths #{"src"}
   :resource-paths #{"css"}
-  :dependencies '[[org.clojure/clojure       "1.7.0-beta1" :scope "provided"]
-                  [org.clojure/clojurescript "0.0-3196"    :scope "provided"]
+  :dependencies '[[org.clojure/clojure       "1.7.0"       :scope "provided"]
+                  [org.clojure/clojurescript "0.0-3308"    :scope "provided"]
                   [org.clojure/core.async    "0.1.346.0-17112a-alpha"
                                                            :scope "provided"]
-                  [org.omcljs/om             "0.8.8"       :scope "provided"]
+                  [org.omcljs/om             "0.9.0"       :scope "provided"]
                   [prismatic/om-tools        "0.3.10"]
                   [org.clojure/core.match    "0.3.0-alpha4"]
                   [combo                     "0.2.0"]
