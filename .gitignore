@@ -1,6 +1,6 @@
 /target/**
 !/target/main.js
-!/target/style.css
+!/target/combo-online.css
 /classes
 /checkouts
 pom.xml
